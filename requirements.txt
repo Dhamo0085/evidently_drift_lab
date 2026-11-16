@@ -1,0 +1,15 @@
+# Original lab pin, unchanged
+evidently==0.7.0
+# evidently 0.7.0 does not cap pandas, but fails to import with pandas 3.x
+# (ImportError: infer_dtype_from_object), so pandas must stay on 2.x.
+pandas==2.3.3
+scikit-learn==1.9.1
+
+# Used by the new monitoring code
+matplotlib==3.11.2
+
+# Running the notebook headlessly (tests) and the test suite
+nbclient==0.11.0
+ipykernel==7.4.0
+pytest==9.2.0
+pytest-cov==7.1.0

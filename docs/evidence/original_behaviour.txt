@@ -1,0 +1,35 @@
+# Behaviour of the ORIGINAL notebook (baseline 8807f17), Python 3.12.14, macOS
+
+## 1. Fresh install as the notebook says: pip install evidently==0.7.0
+$ pip install evidently==0.7.0 && python -c 'import evidently'
+(pip resolved pandas==3.1.1)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ImportError: cannot import name 'infer_dtype_from_object' from 'pandas.core.dtypes.common' (<site-packages>/pandas/core/dtypes/common.py)
+[exit code 1]
+
+## 2. Running the notebook's cells with pandas 2.3.3 (cell 3, the Evidently Cloud login with the
+##    hard-coded token, is skipped: we do not use someone else's credential)
+reference (adult_ref) rows: 14155 | current (adult_prod) rows: 34687
+DriftedColumnsCount: {'count': 5.0, 'share': 0.3333333333333333}
+
+Per-column drift scores (ValueDrift metrics):
+   ValueDrift(column=education-num) = 0.617697
+   ValueDrift(column=age) = 0.185347
+   ValueDrift(column=capital-gain) = 0.081773
+   ValueDrift(column=hours-per-week) = 0.088599
+   ValueDrift(column=capital-loss) = 0.033788
+   ValueDrift(column=fnlwgt) = 0.023643
+   ValueDrift(column=education) = 0.832555
+   ValueDrift(column=occupation) = 0.153201
+   ValueDrift(column=native-country) = 0.107327
+   ValueDrift(column=workclass) = 0.040518
+   ValueDrift(column=marital-status) = 0.035802
+   ValueDrift(column=relationship) = 0.031144
+   ValueDrift(column=race) = 0.019436
+   ValueDrift(column=sex) = 0.018953
+   ValueDrift(column=class) = 0.034295
+
+Files written by the notebook's report code (excluding dataset cache): none (report only shown inline)
+
+DataSummaryPreset is imported in cell 1 but never used: True
+CloudWorkspace object `ws` is created in cell 3 but never used afterwards: True
