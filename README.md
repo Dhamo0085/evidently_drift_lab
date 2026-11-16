@@ -1,5 +1,6 @@
 # evidently_drift_lab
 
+[![tests](https://github.com/Dhamo0085/evidently_drift_lab/actions/workflows/tests.yml/badge.svg)](https://github.com/Dhamo0085/evidently_drift_lab/actions/workflows/tests.yml)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
 ![Evidently](https://img.shields.io/badge/Evidently-0.7.0-ED0400)
 
@@ -112,7 +113,8 @@ git log --oneline
 | `34c5659` | fix(notebook): no hard-coded token, working install, saved reports (D1–D6) |
 | `b847b27` | feat: `drift_monitor.py`: scenarios, CI drift gate, batch trend |
 | `066208d` | test, ci: 47 tests, Python 3.11/3.12, GitHub Actions |
-| *(latest)* | docs: this README and captured evidence |
+| `cd92fdc` | docs: README and captured evidence |
+| *(latest)* | docs: CI badge and CI results after the first green run |
 
 Raw output behind every number here is in [`docs/evidence/`](docs/evidence):
 
@@ -216,7 +218,10 @@ The scores match the original notebook to 6 decimals, for example education-num 
 
 ## 6. Testing
 
-**Original: 0 tests → Now: 47 test cases** (42 test functions). Locally: **47 passed** on Python 3.11.10 and on 3.12.14, in fresh virtualenvs.
+**Original: 0 tests → Now: 47 test cases** (42 test functions).
+
+- **CI (Ubuntu, Python 3.11 and 3.12): 47 passed**, 99% coverage ([first run](https://github.com/Dhamo0085/evidently_drift_lab/actions/runs/43798225841)).
+- **Locally (macOS): 47 passed** on Python 3.11.10 and on 3.12.14, in fresh virtualenvs.
 
 | File | Cases | Covers |
 |---|---:|---|
@@ -233,7 +238,7 @@ The scores match the original notebook to 6 decimals, for example education-num 
 
 The only uncovered line is the `sys.exit(main())` entry point. The notebook isn't part of the coverage figure; instead, a test executes it.
 
-**CI:** [`.github/workflows/tests.yml`](.github/workflows/tests.yml) runs on Python 3.11 and 3.12. It caches the Adult download, runs pytest with coverage, then two gate demos: the random split must **pass** the gate, and the education split must **exit 1**.
+**CI:** [`.github/workflows/tests.yml`](.github/workflows/tests.yml) runs on Python 3.11 and 3.12. It caches the Adult download, runs pytest with coverage, then two gate demos: the random split must **pass** the gate, and the education split must **exit 1**. In the [first run](https://github.com/Dhamo0085/evidently_drift_lab/actions/runs/43798225841), both versions printed `Drifted columns: 0/15` for the control and `DRIFT ALERT: 0.33 of columns drifted (> 0.3)` with `exit code: 1` for the education split.
 
 ---
 
