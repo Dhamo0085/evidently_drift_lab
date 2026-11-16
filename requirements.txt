@@ -1,3 +1,6 @@
+# Python 3.11 or 3.12. evidently 0.7.0 requires numpy<2.1, and numpy 2.0.x has
+# no Python 3.13 wheels (pip then tries to compile numpy and fails).
+
 # Original lab pin, unchanged
 evidently==0.7.0
 # evidently 0.7.0 does not cap pandas, but fails to import with pandas 3.x

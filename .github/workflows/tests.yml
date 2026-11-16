@@ -1,0 +1,54 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Cache the Adult dataset (OpenML)
+        uses: actions/cache@v4
+        with:
+          path: Data_Monitoring/Evidently_AI/data_cache
+          key: openml-adult-v2
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests with coverage
+        run: pytest --cov=Data_Monitoring/Evidently_AI --cov-report=term-missing
+
+      - name: Drift gate demo (control split must pass the gate)
+        working-directory: Data_Monitoring/Evidently_AI
+        run: python drift_monitor.py --scenario random --fail-above 0.3
+
+      - name: Drift gate demo (education split must trip the gate)
+        working-directory: Data_Monitoring/Evidently_AI
+        run: |
+          set +e
+          python drift_monitor.py --scenario education --fail-above 0.3 --batches 6
+          code=$?
+          set -e
+          echo "exit code: $code"
+          test "$code" -eq 1
