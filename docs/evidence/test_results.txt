@@ -1,0 +1,23 @@
+$ pytest --cov=Data_Monitoring/Evidently_AI --cov-report=term-missing
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.2.0, pluggy-1.7.0
+rootdir: ~/Downloads/MLOPs_LAB/evidently_drift_lab
+configfile: pytest.ini
+testpaths: Data_Monitoring/Evidently_AI/tests
+plugins: platformdirs-4.14.5, cov-7.1.0, Faker-40.54.0, anyio-4.16.0
+collected 47 items
+
+Data_Monitoring/Evidently_AI/tests/test_monitor.py ..................... [ 44%]
+...............                                                          [ 76%]
+Data_Monitoring/Evidently_AI/tests/test_notebook_and_adult.py .......... [ 97%]
+.                                                                        [100%]
+
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.14-final-0 _______________
+
+Name                                            Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------------------
+Data_Monitoring/Evidently_AI/drift_monitor.py     218      1    99%   353
+-----------------------------------------------------------------------------
+TOTAL                                             218      1    99%
+============================= 47 passed in 32.67s ==============================
